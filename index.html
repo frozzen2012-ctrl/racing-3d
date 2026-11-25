@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Vroomlings" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <title>Vroomlings</title>
+    <script type="module" crossorigin src="./assets/index-CJmZu25B.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BIFFAxvH.css">
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="game"></canvas>
+      <div id="vignette" aria-hidden="true"></div>
+
+      <div id="hud" hidden>
+        <div class="top">
+          <div class="speed"><span data-hud="speed">0</span><small>км/ч</small></div>
+          <div class="score" data-hud="score">0</div>
+          <div class="coins"><i class="coin"></i><span data-hud="coins">0</span></div>
+        </div>
+        <div class="combo" data-hud="combo">×1</div>
+        <div class="goal" data-hud="goal" hidden></div>
+        <div class="mud" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="drift" data-hud="drift">ДРИФТ ×2</div>
+        <div class="popup"><b></b><span></span></div>
+        <div class="popup"><b></b><span></span></div>
+        <div class="popup"><b></b><span></span></div>
+      </div>
+
+      <div id="hint" hidden>
+        <span>← держите<br />слева</span>
+        <span>держите →<br />справа</span>
+      </div>
+      <div id="flash"></div>
+      <div id="slowmo"></div>
+      <div id="toast" role="status" hidden></div>
+      <div id="tip" role="status" hidden></div>
+      <div id="pads" aria-hidden="true" hidden><i>‹</i><i>›</i></div>
+      <div id="powers" hidden>
+        <div class="row" data-powers="passive"></div>
+        <div class="row" data-powers="manual"></div>
+      </div>
+
+      <div id="home" hidden>
+        <div class="chips">
+          <button type="button" class="chip" data-home="name">
+            <span class="avatar" data-home="avatar" aria-hidden="true"></span>
+            <span class="name" data-home="name-text">Игрок</span>
+            <span class="edit" aria-hidden="true">✎</span>
+          </button>
+          <div class="wallet">
+            <div class="starchip" data-home="stars">★ 0 / 30</div>
+            <div class="coinchip"><i class="coin"></i><span data-home="coins">0</span></div>
+          </div>
+        </div>
+        <div class="sheet" data-home="sheet" role="dialog" aria-label="Выбор машины и режима">
+          <div class="picker">
+            <button type="button" class="arrow" data-home="prev" aria-label="Предыдущая машина">‹</button>
+            <div class="car">
+              <b data-home="car"></b>
+              <span data-home="hint"></span>
+            </div>
+            <button type="button" class="arrow" data-home="next" aria-label="Следующая машина">›</button>
+          </div>
+          <div class="dots" data-home="dots"></div>
+          <button type="button" class="goal" data-home="goal">
+            <small>Следующая цель</small>
+            <b data-home="goal-title"></b>
+            <span class="bar"><i data-home="goal-bar"></i></span>
+            <span class="note" data-home="goal-note"></span>
+          </button>
+          <div class="garage" data-home="garage-view" hidden>
+            <small data-home="garage-note"></small>
+            <div class="paints" data-home="colors" role="group" aria-label="Цвет машины"></div>
+            <div class="links">
+              <button type="button" data-home="garage-powers"></button>
+              <button type="button" data-home="garage-pets"></button>
+            </div>
+          </div>
+          <button type="button" class="go play" data-home="play">Играть</button>
+          <button type="button" class="go buy" data-home="buy" hidden>
+            <span data-home="buy-text">Купить за</span><i class="coin"></i><span data-home="buy-price">0</span>
+          </button>
+          <div class="nav" data-home="nav">
+            <button type="button" data-home="garage"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16v-3.5l2-5.5h12l2 5.5V16M3 16h18v2.5H3zM7 12.5h.01M17 12.5h.01M6.5 18.5V20M17.5 18.5V20" /></svg><span>Гараж</span></button>
+            <button type="button" data-home="shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8zM9 8V6.5a3 3 0 0 1 6 0V8" /></svg><span>Магазин</span></button>
+            <button type="button" data-home="rewards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v9H4zM3 7.5h18V11H3zM12 7.5V20M12 7.5C10 4 6.5 4.5 7 6.5s3 1 5 1zm0 0c2-3.5 5.5-3 5-1s-3 1-5 1z" /></svg><span>Награды</span><i class="dot" data-home="rewards-dot" hidden></i></button>
+            <button type="button" data-home="records"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 5.5H5.5V7A2.5 2.5 0 0 0 8 9.5M16 5.5h2.5V7A2.5 2.5 0 0 1 16 9.5M12 13v4M9 20h6M10 17h4" /></svg><span>Рекорды</span></button>
+          </div>
+          <button type="button" class="done" data-home="garage-done" hidden>Готово</button>
+        </div>
+      </div>
+
+      <div id="play" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="play-title">
+          <h1 id="play-title">Выберите заезд</h1>
+          <div class="trackrow">
+            <button type="button" class="mini" data-play="track-prev" aria-label="Предыдущая трасса">‹</button>
+            <div class="track">
+              <small data-play="track-note">Трасса</small>
+              <b data-play="track"></b>
+            </div>
+            <button type="button" class="mini" data-play="track-next" aria-label="Следующая трасса">›</button>
+          </div>
+          <div class="modes">
+            <button type="button" class="mode" data-play="endless"><b>Заезд на очки</b><span>Езжайте, пока не разобьётесь: близкие обгоны приносят очки</span></button>
+            <button type="button" class="mode race" data-play="race"><b>Гонка</b><span>Два соперника, полтора километра и препятствия</span></button>
+            <button type="button" class="mode alt" data-play="career"><b>Карьера</b><span data-play="career-note"></span></button>
+          </div>
+          <button type="button" class="secondary" data-play="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="levels" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="levels-title">
+          <h1 id="levels-title">Карьера</h1>
+          <p class="sub" data-levels="stars"></p>
+          <div class="grid" data-levels="grid"></div>
+          <button type="button" class="secondary" data-levels="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="records" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="records-title">
+          <h1 id="records-title">Рекорды</h1>
+          <p class="sub">Лучшие заезды на очки на этом устройстве</p>
+          <ol data-records="list"></ol>
+          <p class="empty" data-records="empty">Пока пусто — проедьте первый заезд</p>
+          <button type="button" class="secondary" data-records="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="missions" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="missions-title">
+          <h1 id="missions-title">Награды</h1>
+          <div class="streak">
+            <p class="streakhead"><b data-missions="streak-title"></b><span data-missions="streak-note"></span></p>
+            <div class="days" data-missions="days"></div>
+            <button type="button" class="claim" data-missions="claim"></button>
+          </div>
+          <button type="button" class="chestrow" data-missions="chest">
+            <span class="gift" aria-hidden="true">🎁</span>
+            <span class="what"><b>Сундук дня</b><small data-missions="chest-note"></small></span>
+          </button>
+          <p class="sub">Задания дня: в счёт идут все заезды за день</p>
+          <div class="list" data-missions="list"></div>
+          <button type="button" class="secondary" data-missions="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="chest" class="overlay" hidden>
+        <div class="panel" role="dialog" aria-labelledby="chest-title">
+          <h1 id="chest-title">Сундук дня</h1>
+          <div class="chest-icon" data-chest="icon" aria-hidden="true"></div>
+          <p class="sub" data-chest="text"></p>
+          <button type="button" data-chest="open">Открыть</button>
+          <button type="button" class="secondary" data-chest="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="welcome" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="welcome-title">
+          <h1 id="welcome-title">Подарок новичку</h1>
+          <p class="sub" data-welcome="sub"></p>
+          <div class="list" data-welcome="list"></div>
+          <button type="button" data-welcome="take" disabled></button>
+        </div>
+      </div>
+
+      <div id="shop" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="shop-title">
+          <div class="shophead">
+            <h1 id="shop-title">Магазин</h1>
+            <p class="balance"><i class="coin"></i><span data-shop="coins">0</span></p>
+          </div>
+          <div class="tabs" data-shop="tabs" role="tablist"></div>
+          <p class="sub" data-shop="note"></p>
+          <div class="cards" data-shop="list"></div>
+          <button type="button" class="secondary" data-shop="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="result" class="overlay" hidden>
+        <div class="panel" role="dialog" aria-labelledby="result-title">
+          <h1 id="result-title" data-result="title"></h1>
+          <div class="badge" data-result="badge" hidden></div>
+          <div class="stars3" data-result="stars" hidden></div>
+          <div class="total"><b data-result="value">0</b><small data-result="unit">очков</small></div>
+          <dl class="stats" data-result="rows"></dl>
+          <p class="next" data-result="hint" hidden></p>
+          <button type="button" data-result="primary"></button>
+          <button type="button" class="secondary" data-result="secondary" hidden></button>
+          <button type="button" class="secondary" data-result="menu">Меню</button>
+        </div>
+      </div>
+
+      <div id="pausebox" class="overlay" hidden>
+        <div class="panel" role="dialog" aria-labelledby="pause-title">
+          <h1 id="pause-title">Пауза</h1>
+          <button type="button" data-pause="resume">Продолжить</button>
+          <button type="button" class="secondary" data-pause="settings">Настройки</button>
+          <button type="button" class="secondary" data-pause="menu">Меню</button>
+        </div>
+      </div>
+
+      <div id="settings" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="settings-title">
+          <h1 id="settings-title">Настройки</h1>
+          <div class="list" data-settings="body"></div>
+          <button type="button" data-settings="close">Готово</button>
+        </div>
+      </div>
+
+      <div id="about" class="overlay" hidden>
+        <div class="panel wide" role="dialog" aria-labelledby="about-title">
+          <h1 id="about-title">Об игре</h1>
+          <p class="sub" data-about="version"></p>
+          <div class="about" data-about="text">
+            <h2>Ваши данные</h2>
+            <p>Игра ничего не собирает и никуда не отправляет. Имя, монеты и прогресс хранятся только на этом устройстве. В игре нет рекламы, покупок за деньги и входа в аккаунт.</p>
+            <h2>Чужие работы</h2>
+            <p>Модели машин — набор «Cars — Low Poly Massive Car Pack» студии RG Poly (лицензия CC0). Трёхмерная графика — библиотека three.js (лицензия MIT). Звуки и музыку игра создаёт сама.</p>
+          </div>
+          <iframe class="policy" data-about="page" aria-label="Политика конфиденциальности" hidden></iframe>
+          <button type="button" class="secondary" data-about="policy">Политика конфиденциальности</button>
+          <button type="button" class="secondary" data-about="back">Назад</button>
+        </div>
+      </div>
+
+      <div id="namebox" class="overlay" hidden>
+        <form class="panel" aria-labelledby="name-title">
+          <h1 id="name-title">Как вас зовут?</h1>
+          <div class="avatars" data-name="avatars" role="radiogroup" aria-label="Аватар"></div>
+          <input type="text" placeholder="Игрок" autocomplete="off" autocapitalize="words" enterkeyhint="done" aria-label="Имя игрока" />
+          <button type="submit">Готово</button>
+        </form>
+      </div>
+
+      <button id="sound" class="round" type="button" aria-label="Выключить звук" aria-pressed="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="speaker" d="M4 9.5v5h3.6l4.9 4V5.5l-4.9 4H4z" />
+          <path class="waves" d="M15.8 9a4.4 4.4 0 0 1 0 6M18.2 6.6a7.8 7.8 0 0 1 0 10.8" />
+          <path class="cross" d="M16 9.5l4.6 5M20.6 9.5l-4.6 5" />
+        </svg>
+      </button>
+      <button id="gear" class="round" type="button" aria-label="Настройки" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2" />
+          <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+        </svg>
+      </button>
+      <button id="pause" class="round" type="button" aria-label="Пауза" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="bars" d="M8.5 6v12M15.5 6v12" />
+        </svg>
+      </button>
+      <div id="debug" hidden></div>
+    </div>
+  </body>
+</html>

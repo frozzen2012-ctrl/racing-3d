@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vroomlings — Privacy Policy · Политика конфиденциальности</title>
+    <style>
+      body {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 24px 20px 48px;
+        color: #1c1f26;
+        background: #fff;
+        font: 16px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+      }
+      /* Русская версия идёт первой, если страница открыта с ?lang=ru (так её открывает игра на русском). */
+      main.ru-first section[lang='ru'] {
+        order: -1;
+      }
+      section + section {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #d6dbe4;
+      }
+      main.ru-first section[lang='en'] {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #d6dbe4;
+      }
+      main.ru-first section[lang='ru'] {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 26px;
+      }
+      h2 {
+        margin-top: 28px;
+        font-size: 19px;
+      }
+      small {
+        color: #5c6573;
+      }
+      @media (max-width: 420px) {
+        body {
+          padding: 16px 14px 32px;
+          font-size: 15px;
+        }
+        h1 {
+          font-size: 21px;
+        }
+        h2 {
+          margin-top: 22px;
+          font-size: 17px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section lang="en">
+        <h1>Privacy Policy</h1>
+        <p><small>Effective 23 November 2026.</small></p>
+        <p>This page explains what the game Vroomlings does with player data. In short: it collects nothing and sends nothing anywhere.</p>
+
+        <h2>Who we are</h2>
+        <p>Vroomlings is published by Eva Technology Pty Ltd, Australia. Questions about this policy or the game: info@eva.technology.</p>
+
+        <h2>What data the game collects</h2>
+        <p>None. The game does not ask for or collect your name, email address, phone number, location, contacts, photos or device identifiers.</p>
+
+        <h2>What is stored on your device</h2>
+        <p>The game remembers your progress: the player name and icon you chose, coins, stars, the cars and pets you own, records and settings. All of this is stored only on your device and is never sent to us or to anyone else. To erase it, choose Settings → Reset progress in the game, or uninstall the game.</p>
+
+        <h2>Motion sensors</h2>
+        <p>If you turn on tilt steering in the settings, the game reads how the phone is tilted in order to steer the car. These readings are used only at that moment; they are not saved and not sent anywhere.</p>
+
+        <h2>Ads, purchases, accounts</h2>
+        <p>The game has no ads, no purchases with real money and no sign-in. It uses no analytics tools or third-party services and contains no links to other sites or apps.</p>
+
+        <h2>Children</h2>
+        <p>The game is suitable for children. Because it collects no data at all, it collects no data from children.</p>
+
+        <h2>Changes</h2>
+        <p>If this policy changes, the new version will appear on this page with a new date.</p>
+      </section>
+
+      <section lang="ru">
+        <h1>Политика конфиденциальности</h1>
+        <p><small>Действует с 23 ноября 2026 года.</small></p>
+        <p>Эта страница описывает, что игра Vroomlings делает с данными игрока. Коротко: ничего не собирает и никуда не передаёт.</p>
+
+        <h2>Кто мы</h2>
+        <p>Игру Vroomlings выпускает компания Eva Technology Pty Ltd, Австралия. Вопросы об этой политике и об игре: info@eva.technology.</p>
+
+        <h2>Какие данные собирает игра</h2>
+        <p>Никакие. Игра не просит и не собирает имя, адрес почты, номер телефона, сведения о местоположении, контакты, фотографии или идентификаторы устройства.</p>
+
+        <h2>Что хранится на устройстве</h2>
+        <p>Игра запоминает прогресс: придуманное имя игрока и выбранный значок, монеты, звёзды, купленные машины и питомцев, рекорды и настройки. Всё это хранится только в памяти вашего устройства и не отправляется ни нам, ни кому-либо ещё. Чтобы стереть эти данные, выберите в игре «Настройки» → «Сбросить прогресс» или удалите игру.</p>
+
+        <h2>Датчики движения</h2>
+        <p>Если включить в настройках управление наклоном, игра читает наклон телефона, чтобы рулить машиной. Эти показания используются только в этот момент: они не сохраняются и никуда не отправляются.</p>
+
+        <h2>Реклама, покупки, аккаунты</h2>
+        <p>В игре нет рекламы, покупок за настоящие деньги и входа в аккаунт. Игра не использует средства аналитики и сторонние сервисы и не содержит ссылок на другие сайты и приложения.</p>
+
+        <h2>Дети</h2>
+        <p>Игра подходит детям. Поскольку она не собирает никаких данных, она не собирает и данные детей.</p>
+
+        <h2>Изменения</h2>
+        <p>Если политика изменится, новая версия появится на этой странице с новой датой.</p>
+      </section>
+    </main>
+    <script>
+      if (new URLSearchParams(location.search).get('lang') === 'ru') {
+        document.querySelector('main').classList.add('ru-first');
+        document.documentElement.lang = 'ru';
+      }
+    </script>
+  </body>
+</html>
